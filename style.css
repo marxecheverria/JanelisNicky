@@ -73,11 +73,14 @@ body {
 }
 
 .slide-img {
-    width: 100%;
-    height: 100%;
+    width: 85%;
+    height: 85%;
     object-fit: cover;
     object-position: center;
     animation: zoomIn 0.6s ease-out;
+    border-radius: 20px;
+    margin: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
 /* Efecto de zoom suave al cargar la imagen */
@@ -635,4 +638,227 @@ body {
     border-top-color: white;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+}
+
+/* ========================================
+   BORDES TEMÁTICOS PARA FOTOS
+   ======================================== */
+
+/* Tema Cumpleaños 🎂 */
+.border-birthday .slide-img {
+    border: 15px solid transparent;
+    border-image: linear-gradient(45deg, #ff6b9d, #ffd700, #ff1493, #ffb6c1) 1;
+    box-shadow: 0 0 30px rgba(255, 107, 157, 0.6), 
+                0 0 60px rgba(255, 215, 0, 0.4),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.border-birthday::before {
+    content: '🎂 🎉 🎈 🎁 🎊 🍰';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    z-index: 10;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    animation: bounce 2s ease-in-out infinite;
+}
+
+/* Tema Amistad 💕 */
+.border-friendship .slide-img {
+    border: 15px solid transparent;
+    border-image: linear-gradient(135deg, #ff69b4, #ff1493, #c71585, #ff69b4) 1;
+    box-shadow: 0 0 30px rgba(255, 105, 180, 0.6),
+                0 0 60px rgba(199, 21, 133, 0.4);
+}
+
+.border-friendship::after {
+    content: '💕 💖 💗 👭 💝 💓';
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    z-index: 10;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Tema Naturaleza 🌸 */
+.border-nature .slide-img {
+    border: 15px solid transparent;
+    border-image: linear-gradient(135deg, #90ee90, #32cd32, #98fb98, #00fa9a) 1;
+    box-shadow: 0 0 30px rgba(50, 205, 50, 0.6),
+                0 0 60px rgba(0, 250, 154, 0.4);
+}
+
+.border-nature::before {
+    content: '🌸 🌺 🌻 🌷 🌹 🦋';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    z-index: 10;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Tema Casa/Hogar 🏠 */
+.border-home .slide-img {
+    border: 15px solid transparent;
+    border-image: linear-gradient(135deg, #ffdab9, #deb887, #d2691e, #cd853f) 1;
+    box-shadow: 0 0 30px rgba(222, 184, 135, 0.6),
+                0 0 60px rgba(210, 105, 30, 0.4);
+}
+
+.border-home::after {
+    content: '🏠 💝 🌈 ✨ 🎀 🌟';
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    z-index: 10;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Tema BTS 💜 */
+.border-bts .slide-img {
+    border: 15px solid transparent;
+    border-image: linear-gradient(135deg, #9b59b6, #8e44ad, #6c3483, #5b2c6f) 1;
+    box-shadow: 0 0 40px rgba(155, 89, 182, 0.8),
+                0 0 80px rgba(108, 52, 131, 0.6),
+                inset 0 0 30px rgba(139, 69, 255, 0.2);
+}
+
+.border-bts::before {
+    content: '💜 BTS 💜';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    padding: 5px 20px;
+    border-radius: 20px;
+    z-index: 10;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.5);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Tema SEVENTEEN 💎 */
+.border-seventeen .slide-img {
+    border: 15px solid transparent;
+    border-image: linear-gradient(135deg, #e74c3c, #ff6b9d, #f39c12, #e67e22) 1;
+    box-shadow: 0 0 40px rgba(231, 76, 60, 0.8),
+                0 0 80px rgba(255, 107, 157, 0.6);
+}
+
+.border-seventeen::before {
+    content: '💎 SEVENTEEN 💎';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #e74c3c, #f39c12);
+    padding: 5px 20px;
+    border-radius: 20px;
+    z-index: 10;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.5);
+}
+
+/* Tema EXO ⭐ */
+.border-exo .slide-img {
+    border: 15px solid transparent;
+    border-image: linear-gradient(135deg, #3498db, #2980b9, #1abc9c, #16a085) 1;
+    box-shadow: 0 0 40px rgba(52, 152, 219, 0.8),
+                0 0 80px rgba(26, 188, 156, 0.6);
+}
+
+.border-exo::after {
+    content: '⭐ EXO ⭐';
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #3498db, #1abc9c);
+    padding: 5px 20px;
+    border-radius: 20px;
+    z-index: 10;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.5);
+}
+
+/* Tema BLACKPINK 🖤💗 */
+.border-blackpink .slide-img {
+    border: 15px solid transparent;
+    border-image: linear-gradient(135deg, #000, #ff1493, #000, #ff69b4) 1;
+    box-shadow: 0 0 40px rgba(255, 20, 147, 0.8),
+                0 0 80px rgba(0, 0, 0, 0.8);
+}
+
+.border-blackpink::before {
+    content: '🖤 BLACKPINK 💗';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #000, #ff1493);
+    padding: 5px 20px;
+    border-radius: 20px;
+    z-index: 10;
+    text-shadow: 0 2px 10px rgba(255, 20, 147, 0.8);
+    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.5);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Tema ATEEZ 🏴‍☠️ */
+.border-ateez .slide-img {
+    border: 15px solid transparent;
+    border-image: linear-gradient(135deg, #e67e22, #d35400, #f39c12, #e74c3c) 1;
+    box-shadow: 0 0 40px rgba(230, 126, 34, 0.8),
+                0 0 80px rgba(211, 84, 0, 0.6);
+}
+
+.border-ateez::after {
+    content: '🏴‍☠️ ATEEZ 🏴‍☠️';
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    padding: 5px 20px;
+    border-radius: 20px;
+    z-index: 10;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(230, 126, 34, 0.5);
+}
+
+/* Animaciones adicionales para bordes */
+@keyframes borderGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px currentColor;
+    }
+    50% {
+        box-shadow: 0 0 40px currentColor, 0 0 60px currentColor;
+    }
 }
