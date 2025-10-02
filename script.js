@@ -1,10 +1,15 @@
-// Álbum Fotográfico Móvil
+// Álbum Fotográfico Móvil con Zoom y FlipBook
 (function() {
     'use strict';
     
     const app = {
         container: document.getElementById('albumContainer'),
         musicBtn: document.getElementById('musicBtn'),
+        reloadBtn: document.getElementById('reloadBtn'),
+        zoomInBtn: document.getElementById('zoomInBtn'),
+        zoomOutBtn: document.getElementById('zoomOutBtn'),
+        swipeModeBtn: document.getElementById('swipeMode'),
+        flipModeBtn: document.getElementById('flipMode'),
         music: document.getElementById('backgroundMusic'),
         currentPageEl: document.getElementById('currentPage'),
         progressFill: document.getElementById('progressFill'),
@@ -16,7 +21,14 @@
         isScrolling: false,
         musicPlaying: false,
         touchStart: { x: 0, y: 0 },
-        touchEnd: { x: 0, y: 0 }
+        touchEnd: { x: 0, y: 0 },
+        zoomLevel: 1,
+        isFlipbookMode: false,
+        
+        // Variables para pinch zoom
+        pinchDistance: 0,
+        lastPinchDistance: 0,
+        isPinching: false
     };
     
     function init() {
@@ -24,6 +36,9 @@
         setupMusic();
         setupParticles();
         setupImages();
+        setupZoom();
+        setupReload();
+        setupModeSwitch();
         updateUI();
         
         if (app.restartBtn) {
@@ -35,33 +50,238 @@
         preventDoubleTapZoom();
     }
     
-    function setupSwipe() {
-        app.container.addEventListener('touchstart', e => {
-            app.touchStart.x = e.touches[0].clientX;
-            app.touchStart.y = e.touches[0].clientY;
-        }, { passive: true });
+    // ========================================
+    // SISTEMA DE ZOOM
+    // ========================================
+    
+    function setupZoom() {
+        // Botones de zoom
+        if (app.zoomInBtn) {
+            app.zoomInBtn.addEventListener('click', () => zoomIn());
+        }
+        if (app.zoomOutBtn) {
+            app.zoomOutBtn.addEventListener('click', () => zoomOut());
+        }
         
-        app.container.addEventListener('touchmove', e => {
-            if (app.isScrolling) return;
-            const deltaX = Math.abs(e.touches[0].clientX - app.touchStart.x);
-            const deltaY = Math.abs(e.touches[0].clientY - app.touchStart.y);
-            if (deltaX > deltaY) e.preventDefault();
-        }, { passive: false });
+        // Pinch to zoom
+        app.container.addEventListener('touchstart', handlePinchStart, { passive: false });
+        app.container.addEventListener('touchmove', handlePinchMove, { passive: false });
+        app.container.addEventListener('touchend', handlePinchEnd, { passive: false });
         
-        app.container.addEventListener('touchend', e => {
-            if (app.isScrolling) return;
-            app.touchEnd.x = e.changedTouches[0].clientX;
-            app.touchEnd.y = e.changedTouches[0].clientY;
-            handleSwipe();
-        }, { passive: true });
+        // Double tap to zoom
+        setupDoubleTapZoom();
     }
     
-    function handleSwipe() {
+    function handlePinchStart(e) {
+        if (e.touches.length === 2) {
+            app.isPinching = true;
+            app.pinchDistance = getPinchDistance(e.touches);
+            app.lastPinchDistance = app.pinchDistance;
+            e.preventDefault();
+        }
+    }
+    
+    function handlePinchMove(e) {
+        if (app.isPinching && e.touches.length === 2) {
+            e.preventDefault();
+            const currentDistance = getPinchDistance(e.touches);
+            const delta = currentDistance - app.lastPinchDistance;
+            
+            // Ajustar zoom basado en el cambio de distancia
+            const zoomDelta = delta * 0.01;
+            app.zoomLevel = Math.max(1, Math.min(5, app.zoomLevel + zoomDelta));
+            
+            applyZoom();
+            app.lastPinchDistance = currentDistance;
+        }
+    }
+    
+    function handlePinchEnd(e) {
+        if (app.isPinching) {
+            app.isPinching = false;
+            app.pinchDistance = 0;
+            app.lastPinchDistance = 0;
+        }
+    }
+    
+    function getPinchDistance(touches) {
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+    
+    function setupDoubleTapZoom() {
+        let lastTap = 0;
+        app.slides.forEach(slide => {
+            slide.addEventListener('touchend', (e) => {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTap;
+                
+                if (tapLength < 300 && tapLength > 0) {
+                    // Double tap detectado
+                    e.preventDefault();
+                    if (app.zoomLevel === 1) {
+                        app.zoomLevel = 2;
+                    } else {
+                        app.zoomLevel = 1;
+                    }
+                    applyZoom();
+                }
+                lastTap = currentTime;
+            });
+        });
+    }
+    
+    function zoomIn() {
+        app.zoomLevel = Math.min(5, app.zoomLevel + 0.5);
+        applyZoom();
+        vibrate(10);
+    }
+    
+    function zoomOut() {
+        app.zoomLevel = Math.max(1, app.zoomLevel - 0.5);
+        applyZoom();
+        vibrate(10);
+    }
+    
+    function applyZoom() {
+        const currentSlideEl = app.slides[app.currentSlide];
+        if (currentSlideEl) {
+            currentSlideEl.style.setProperty('--zoom-level', app.zoomLevel);
+            
+            if (app.zoomLevel > 1) {
+                currentSlideEl.classList.add('zoomed');
+            } else {
+                currentSlideEl.classList.remove('zoomed');
+            }
+        }
+    }
+    
+    // ========================================
+    // RECARGA DE PÁGINA
+    // ========================================
+    
+    function setupReload() {
+        if (app.reloadBtn) {
+            app.reloadBtn.addEventListener('click', () => {
+                if (confirm('¿Recargar el álbum?')) {
+                    location.reload();
+                }
+            });
+        }
+    }
+    
+    // ========================================
+    // SWITCH DE MODO
+    // ========================================
+    
+    function setupModeSwitch() {
+        if (app.swipeModeBtn) {
+            app.swipeModeBtn.addEventListener('click', () => activateSwipeMode());
+        }
+        if (app.flipModeBtn) {
+            app.flipModeBtn.addEventListener('click', () => activateFlipbookMode());
+        }
+    }
+    
+    function activateSwipeMode() {
+        app.isFlipbookMode = false;
+        app.container.classList.remove('flipbook-mode');
+        app.swipeModeBtn.classList.add('active');
+        app.flipModeBtn.classList.remove('active');
+        
+        // Destruir flipbook si existe
+        if (typeof $ !== 'undefined' && app.container.turn) {
+            try {
+                $(app.container).turn('destroy');
+            } catch(e) {
+                console.log('No flipbook to destroy');
+            }
+        }
+        
+        vibrate(10);
+    }
+    
+    function activateFlipbookMode() {
+        app.isFlipbookMode = true;
+        app.container.classList.add('flipbook-mode');
+        app.flipModeBtn.classList.add('active');
+        app.swipeModeBtn.classList.remove('active');
+        
+        // Inicializar Turn.js
+        if (typeof $ !== 'undefined' && typeof $.fn.turn !== 'undefined') {
+            setTimeout(() => {
+                try {
+                    $(app.container).turn({
+                        width: window.innerWidth,
+                        height: window.innerHeight,
+                        autoCenter: true,
+                        acceleration: true,
+                        gradients: true,
+                        elevation: 50,
+                        duration: 1000,
+                        pages: app.slides.length,
+                        when: {
+                            turned: function(e, page) {
+                                app.currentSlide = page - 1;
+                                updateUI();
+                            }
+                        }
+                    });
+                } catch(e) {
+                    console.error('Error inicializando flipbook:', e);
+                    activateSwipeMode();
+                }
+            }, 100);
+        } else {
+            console.error('Turn.js no está disponible');
+            activateSwipeMode();
+        }
+        
+        vibrate(10);
+    }
+    
+    // ========================================
+    // SISTEMA DE SWIPE (igual que antes)
+    // ========================================
+    
+    function setupSwipe() {
+        app.container.addEventListener('touchstart', handleTouchStart, { passive: true });
+        app.container.addEventListener('touchmove', handleTouchMove, { passive: false });
+        app.container.addEventListener('touchend', handleTouchEnd, { passive: true });
+        
+        document.addEventListener('keydown', handleKeyboard);
+        app.container.addEventListener('wheel', handleWheel, { passive: false });
+    }
+    
+    function handleTouchStart(e) {
+        if (app.isPinching || e.touches.length > 1) return;
+        app.touchStart.x = e.touches[0].clientX;
+        app.touchStart.y = e.touches[0].clientY;
+    }
+    
+    function handleTouchMove(e) {
+        if (app.isScrolling || app.isPinching || e.touches.length > 1) return;
+        
+        app.touchEnd.x = e.touches[0].clientX;
+        app.touchEnd.y = e.touches[0].clientY;
+        
+        const deltaX = Math.abs(app.touchEnd.x - app.touchStart.x);
+        const deltaY = Math.abs(app.touchEnd.y - app.touchStart.y);
+        
+        if (deltaX > deltaY && app.zoomLevel === 1) {
+            e.preventDefault();
+        }
+    }
+    
+    function handleTouchEnd(e) {
+        if (app.isScrolling || app.isPinching || app.isFlipbookMode) return;
+        
         const deltaX = app.touchStart.x - app.touchEnd.x;
         const deltaY = Math.abs(app.touchStart.y - app.touchEnd.y);
         const minSwipe = 50;
         
-        if (Math.abs(deltaX) > minSwipe && Math.abs(deltaX) > deltaY) {
+        if (Math.abs(deltaX) > minSwipe && Math.abs(deltaX) > deltaY && app.zoomLevel === 1) {
             deltaX > 0 ? nextSlide() : prevSlide();
         }
     }
@@ -83,6 +303,16 @@
         }
     }
     
+    function handleWheel(e) {
+        if (app.isScrolling || app.isFlipbookMode) return;
+        e.preventDefault();
+        if (e.deltaY > 0 || e.deltaX > 0) {
+            nextSlide();
+        } else if (e.deltaY < 0 || e.deltaX < 0) {
+            prevSlide();
+        }
+    }
+    
     function nextSlide() {
         if (app.currentSlide < app.slides.length - 1) {
             goToSlide(app.currentSlide + 1);
@@ -96,10 +326,11 @@
     }
     
     function goToSlide(index) {
-        if (app.isScrolling || index < 0 || index >= app.slides.length) return;
+        if (app.isScrolling || index < 0 || index >= app.slides.length || app.isFlipbookMode) return;
         
         app.isScrolling = true;
         app.currentSlide = index;
+        app.zoomLevel = 1; // Reset zoom al cambiar de página
         
         app.container.scrollTo({
             left: window.innerWidth * index,
@@ -113,6 +344,7 @@
         if (index === 0) createHearts();
         if (index === app.slides.length - 1) createConfetti();
         
+        applyZoom();
         vibrate(10);
         setTimeout(() => app.isScrolling = false, 600);
     }
@@ -125,6 +357,10 @@
         app.currentPageEl.style.transform = 'scale(1.2)';
         setTimeout(() => app.currentPageEl.style.transform = 'scale(1)', 200);
     }
+    
+    // ========================================
+    // MÚSICA (igual que antes)
+    // ========================================
     
     function setupMusic() {
         if (!app.music) return;
@@ -151,6 +387,10 @@
         app.musicPlaying = false;
         app.musicBtn.classList.remove('playing');
     }
+    
+    // ========================================
+    // IMÁGENES, PARTÍCULAS Y EFECTOS
+    // ========================================
     
     function setupImages() {
         const images = document.querySelectorAll('.slide-img, .cover-img');
@@ -270,7 +510,9 @@
         setTimeout(() => {
             app.canvas.width = window.innerWidth;
             app.canvas.height = window.innerHeight;
-            app.container.scrollLeft = window.innerWidth * app.currentSlide;
+            if (!app.isFlipbookMode) {
+                app.container.scrollLeft = window.innerWidth * app.currentSlide;
+            }
         }, 100);
     }
     
@@ -279,10 +521,13 @@
     }
     
     function preventDoubleTapZoom() {
+        // Permitir zoom pero prevenir el zoom de doble tap del navegador
         let lastTouch = 0;
         document.addEventListener('touchend', e => {
             const now = Date.now();
-            if (now - lastTouch <= 300) e.preventDefault();
+            if (now - lastTouch <= 300) {
+                // Manejado por nuestro sistema de zoom
+            }
             lastTouch = now;
         }, { passive: false });
     }
@@ -297,6 +542,5 @@
     
     document.addEventListener('DOMContentLoaded', init);
     
-    console.log('✅ Álbum móvil listo - Desliza para navegar 👆');
+    console.log('✅ Álbum con Zoom y FlipBook listo 📱✨');
 })();
-
