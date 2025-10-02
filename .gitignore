@@ -1,0 +1,25 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos temporales
+*.log
+*.tmp
+.cache/
+
+# Node modules (si agregas algo de Node.js en el futuro)
+node_modules/
+package-lock.json
+
+# Archivos de audio grandes (opcional)
+# Si el archivo de música es muy pesado, descoméntalo
+# audio/*.mp3
+# audio/*.wav

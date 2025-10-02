@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Álbum Fotográfico 💖</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Controles Flotantes -->
+    <div class="controls">
+        <button id="musicBtn" class="control-btn" aria-label="Control de música">
+            <svg class="music-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Indicador de página -->
+    <div class="page-indicator">
+        <span id="currentPage">1</span> / <span id="totalPages">38</span>
+    </div>
+
+    <!-- Barra de progreso -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Contenedor principal del álbum -->
+    <div class="album-container" id="albumContainer">
+        
+        <!-- Página de portada -->
+        <div class="photo-slide cover-slide">
+            <div class="cover-content">
+                <h1 class="cover-title">Álbum Fotográfico</h1>
+                <div class="cover-photos">
+                    <div class="cover-photo-frame">
+                        <img src="images/Nena1.jpg" alt="Foto 1" class="cover-img">
+                    </div>
+                    <div class="cover-photo-frame">
+                        <img src="images/nena2.jpg" alt="Foto 2" class="cover-img">
+                    </div>
+                </div>
+                <div class="swipe-hint">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                    </svg>
+                    <span>Desliza para ver</span>
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Foto 1 -->
+        <div class="photo-slide">
+            <img src="images/475213825_661090719578594_8438408403661679477_n.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 2 -->
+        <div class="photo-slide">
+            <img src="images/475513814_662809212740078_6274997374332434987_n.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 3 -->
+        <div class="photo-slide">
+            <img src="images/476838575_672577911763208_4728420080008968464_n.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 4 -->
+        <div class="photo-slide">
+            <img src="images/481223679_680930597594606_5543258437609807062_n.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 5 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.39_0ed4de5e.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 6 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.39_201b8f71.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 7 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.39_aa223ca5.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 8 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.40_497a25a3.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 9 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.41_5cf725bc.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 10 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.42_11fa6a64.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 11 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.42_2921d04e.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 12 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.42_a0fe2c17.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 13 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.43_16e3ede6.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 14 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.43_3ca9b929.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 15 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.43_612bc96b.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 16 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.44_2ed665e4.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 17 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.44_c9c78d94.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 18 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.44_d3679496.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 19 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.45_3e9b1625.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 20 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.45_4d0dd28f.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 21 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.45_7b56017e.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 22 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.46_3d10d09c.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 23 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.46_7af8911d.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 24 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.46_baf3ab04.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 25 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.46_c55bb868.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 26 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.47_9add1eb7.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 27 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.48_27ea0969.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 28 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.50_14046347.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 29 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.51_27327698.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 30 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.51_4969f207.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 31 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.51_924f75f5.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 32 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.51_ff20d1f5.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 33 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.52_1b8bfc8d.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 34 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.52_79a937e4.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 35 -->
+        <div class="photo-slide">
+            <img src="images/Imagen de WhatsApp 2025-09-27 a las 18.21.52_bd9d5518.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 36 -->
+        <div class="photo-slide">
+            <img src="images/Nena1.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Foto 37 -->
+        <div class="photo-slide">
+            <img src="images/nena2.jpg" alt="Recuerdo" class="slide-img">
+        </div>
+
+        <!-- Página final -->
+        <div class="photo-slide final-slide">
+            <div class="final-content">
+                <h2 class="final-title">💖</h2>
+                <p class="final-text">Fin del álbum</p>
+                <button class="restart-btn" id="restartBtn">Ver de nuevo</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Audio de fondo -->
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
+        <source src="https://www.bensound.com/bensound-music/bensound-sweet.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Partículas flotantes -->
+    <canvas id="particlesCanvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
