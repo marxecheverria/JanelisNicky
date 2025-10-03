@@ -7,8 +7,33 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Álbum Fotográfico 💖</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Preconnect para Google Fonts (optimización) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- CSS crítico inline para evitar bloqueo -->
+    <style>
+        /* CSS crítico mínimo para la carga inicial */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; overflow: hidden; font-family: system-ui, -apple-system, sans-serif; background: #667eea; }
+        .album-container { display: flex; width: 100%; height: 100vh; overflow-x: hidden; }
+        .photo-slide { min-width: 100vw; width: 100vw; height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; }
+        .cover-slide { background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #9b59b6 50%, #8e44ad 75%, #6c3483 100%); }
+    </style>
+    
+    <!-- Cargar CSS principal de forma asíncrona -->
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
+    
+    <!-- Cargar Google Fonts de forma asíncrona -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Polyfill para navegadores antiguos que no soportan preload -->
+    <script>
+        !function(e){"use strict";var t=function(t,n,r){var o,i=e.document,l=i.createElement("link");if(n)o=n;else{var a=(i.body||i.getElementsByTagName("head")[0]).childNodes;o=a[a.length-1]}var d=i.styleSheets;l.rel="stylesheet",l.href=t,l.media="only x",function e(t){if(i.body)return t();setTimeout(function(){e(t)})}(function(){o.parentNode.insertBefore(l,n?o:o.nextSibling)});var f=function(e){for(var t=l.href,n=d.length;n--;)if(d[n].href===t)return e();setTimeout(function(){f(e)})};return l.addEventListener&&l.addEventListener("load",function(){this.media=r||"all"}),l.onloadcssdefined=f,f(function(){l.media!==r&&(l.media=r)}),l};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this);
+    </script>
 </head>
 <body>
     <!-- Controles Flotantes -->
