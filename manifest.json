@@ -1,0 +1,36 @@
+{
+    "name": "Álbum Fotográfico - Feliz Cumpleaños Nena",
+    "short_name": "Álbum 💖",
+    "description": "Álbum fotográfico móvil con música y efectos interactivos",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#667eea",
+    "theme_color": "#764ba2",
+    "orientation": "portrait",
+    "scope": "./",
+    "icons": [
+        {
+            "src": "images/Nena1.jpg",
+            "sizes": "192x192",
+            "type": "image/jpeg",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "images/nena2.jpg",
+            "sizes": "512x512",
+            "type": "image/jpeg",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "images/Nena1.jpg",
+            "sizes": "540x720",
+            "type": "image/jpeg"
+        }
+    ],
+    "categories": ["photo", "entertainment"],
+    "lang": "es",
+    "dir": "ltr"
+}
+

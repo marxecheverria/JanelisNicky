@@ -6,7 +6,12 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#764ba2">
+    <meta name="description" content="Álbum fotográfico móvil con música y efectos interactivos">
     <title>Álbum Fotográfico 💖</title>
+    
+    <!-- Manifest para PWA -->
+    <link rel="manifest" href="manifest.json">
     
     <!-- Preconnect para Google Fonts (optimización) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -130,12 +135,12 @@
 
         <!-- Foto 1 - Tema BTS -->
         <div class="photo-slide border-bts">
-            <img src="images/475213825_661090719578594_8438408403661679477_n.jpg" alt="Recuerdo" class="slide-img" loading="lazy" decoding="async">
+            <img src="images/475213825_661090719578594_8438408403661679477_n.webp" alt="Recuerdo" class="slide-img" loading="lazy" decoding="async">
         </div>
 
         <!-- Foto 2 - Tema Cumpleaños -->
         <div class="photo-slide border-birthday">
-            <img src="images/475513814_662809212740078_6274997374332434987_n.jpg" alt="Recuerdo" class="slide-img">
+            <img src="images/475513814_662809212740078_6274997374332434987_n.webp" alt="Recuerdo" class="slide-img">
         </div>
 
         <!-- Foto 3 - Tema SEVENTEEN -->
@@ -293,6 +298,34 @@
     <!-- Partículas flotantes -->
     <canvas id="particlesCanvas"></canvas>
 
-    <script src="script.js"></script>
+    <!-- Service Worker para caché optimizado -->
+    <script>
+        // Registrar Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then((registration) => {
+                        console.log('✅ Service Worker registrado:', registration.scope);
+                        
+                        // Actualizar SW cuando haya nueva versión
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // Nueva versión disponible, actualizar
+                                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                    window.location.reload();
+                                }
+                            });
+                        });
+                    })
+                    .catch((error) => {
+                        console.log('⚠️ Service Worker no pudo registrarse:', error);
+                    });
+            });
+        }
+    </script>
+
+    <script src="script.js" defer></script>
 </body>
 </html>
