@@ -220,9 +220,9 @@ body {
     }
 }
 
-/* Fondo animado de cumpleaños */
+/* Fondo animado de cumpleaños - Degradado Violeta */
 .cover-slide {
-    background: linear-gradient(135deg, #ff6b9d 0%, #ffd700 25%, #ff1493 50%, #ffb6c1 75%, #ff69b4 100%) !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #9b59b6 50%, #8e44ad 75%, #6c3483 100%) !important;
     background-size: 400% 400% !important;
     animation: gradientAnimation 8s ease infinite !important;
 }
@@ -259,11 +259,11 @@ body {
     font-weight: 800;
     color: #fff;
     text-shadow: 
-        0 0 10px rgba(255, 215, 0, 0.8),
-        0 0 20px rgba(255, 105, 180, 0.6),
+        0 0 10px rgba(139, 69, 255, 0.8),
+        0 0 20px rgba(155, 89, 182, 0.6),
         0 4px 15px rgba(0, 0, 0, 0.5),
-        2px 2px 0 #ff1493,
-        -2px -2px 0 #ffd700;
+        2px 2px 0 #8e44ad,
+        -2px -2px 0 #667eea;
     letter-spacing: 3px;
     margin: 0;
     animation: titleGlow 2s ease-in-out infinite alternate;
@@ -272,19 +272,19 @@ body {
 @keyframes titleGlow {
     0% {
         text-shadow: 
-            0 0 10px rgba(255, 215, 0, 0.8),
-            0 0 20px rgba(255, 105, 180, 0.6),
+            0 0 10px rgba(139, 69, 255, 0.8),
+            0 0 20px rgba(155, 89, 182, 0.6),
             0 4px 15px rgba(0, 0, 0, 0.5),
-            2px 2px 0 #ff1493,
-            -2px -2px 0 #ffd700;
+            2px 2px 0 #8e44ad,
+            -2px -2px 0 #667eea;
     }
     100% {
         text-shadow: 
-            0 0 20px rgba(255, 215, 0, 1),
-            0 0 40px rgba(255, 105, 180, 0.8),
+            0 0 20px rgba(139, 69, 255, 1),
+            0 0 40px rgba(155, 89, 182, 0.8),
             0 4px 20px rgba(0, 0, 0, 0.7),
-            3px 3px 0 #ff1493,
-            -3px -3px 0 #ffd700;
+            3px 3px 0 #8e44ad,
+            -3px -3px 0 #667eea;
     }
 }
 
@@ -294,11 +294,11 @@ body {
     font-weight: 900;
     color: #fff;
     text-shadow: 
-        0 0 20px rgba(255, 215, 0, 1),
-        0 0 40px rgba(255, 20, 147, 0.8),
+        0 0 20px rgba(139, 69, 255, 1),
+        0 0 40px rgba(155, 89, 182, 0.8),
         0 6px 20px rgba(0, 0, 0, 0.6),
-        4px 4px 0 #ff1493,
-        -4px -4px 0 #ffd700,
+        4px 4px 0 #8e44ad,
+        -4px -4px 0 #667eea,
         0 0 60px rgba(255, 255, 255, 0.4);
     letter-spacing: 5px;
     margin: 5px 0 0 0;
@@ -332,7 +332,7 @@ body {
     border: 5px solid rgba(255, 255, 255, 0.9);
     box-shadow: 
         0 10px 40px rgba(0, 0, 0, 0.4),
-        0 0 20px rgba(255, 215, 0, 0.5),
+        0 0 20px rgba(139, 69, 255, 0.5),
         inset 0 0 20px rgba(255, 255, 255, 0.2);
     animation: floatPhoto 3s ease-in-out infinite;
     position: relative;
@@ -344,7 +344,7 @@ body {
     transform: scale(1.05) rotateY(5deg);
     box-shadow: 
         0 15px 50px rgba(0, 0, 0, 0.5),
-        0 0 30px rgba(255, 215, 0, 0.7);
+        0 0 30px rgba(139, 69, 255, 0.7);
 }
 
 .cover-photo-rect-frame:first-child {
@@ -370,13 +370,13 @@ body {
         transform: translateY(0px);
         box-shadow: 
             0 10px 40px rgba(0, 0, 0, 0.4),
-            0 0 20px rgba(255, 215, 0, 0.5);
+            0 0 20px rgba(139, 69, 255, 0.5);
     }
     50% {
         transform: translateY(-10px);
         box-shadow: 
             0 15px 50px rgba(0, 0, 0, 0.5),
-            0 0 30px rgba(255, 215, 0, 0.7);
+            0 0 30px rgba(139, 69, 255, 0.7);
     }
 }
 
@@ -431,8 +431,8 @@ body {
     color: #fff;
     text-shadow: 
         0 2px 10px rgba(0, 0, 0, 0.5),
-        0 0 20px rgba(255, 105, 180, 0.6),
-        2px 2px 0 #ff1493;
+        0 0 20px rgba(155, 89, 182, 0.6),
+        2px 2px 0 #8e44ad;
     margin: 0 0 10px 0;
     letter-spacing: 2px;
 }
