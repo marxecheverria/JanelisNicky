@@ -13,32 +13,79 @@
     <!-- Manifest para PWA -->
     <link rel="manifest" href="manifest.json">
     
-    <!-- Preconnect para Google Fonts (optimización) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- CSS crítico inline para evitar bloqueo -->
+    <!-- CSS crítico completo inline para carga instantánea -->
     <style>
-        /* CSS crítico mínimo para la carga inicial */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { width: 100%; height: 100%; overflow: hidden; font-family: system-ui, -apple-system, sans-serif; background: #667eea; }
-        .album-container { display: flex; width: 100%; height: 100vh; overflow-x: hidden; }
-        .photo-slide { min-width: 100vw; width: 100vw; height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; }
-        .cover-slide { background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #9b59b6 50%, #8e44ad 75%, #6c3483 100%); }
+        /* Reset y configuración base */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html, body { 
+            width: 100%; height: 100%; overflow: hidden; position: fixed;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #667eea;
+        }
+        
+        /* Contenedor del álbum */
+        .album-container { 
+            display: flex; width: 100%; height: 100vh; overflow-x: hidden; 
+            scroll-behavior: smooth; scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch; touch-action: pan-x pinch-zoom;
+        }
+        
+        /* Slides de fotos */
+        .photo-slide { 
+            min-width: 100vw; width: 100vw; height: 100vh; 
+            scroll-snap-align: start; position: relative; 
+            display: flex; align-items: center; justify-content: center; 
+            background: #000;
+        }
+        
+        /* Portada */
+        .cover-slide { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #9b59b6 50%, #8e44ad 75%, #6c3483 100%) !important;
+            background-size: 400% 400% !important;
+        }
+        
+        /* Controles */
+        .controls { 
+            position: fixed; top: 20px; right: 20px; z-index: 1000; 
+            display: flex; gap: 10px; flex-wrap: wrap; max-width: 120px; 
+        }
+        .control-btn { 
+            width: 50px; height: 50px; border-radius: 50%; 
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); 
+            border: 2px solid rgba(255, 255, 255, 0.3); color: #fff;
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; padding: 0;
+        }
+        .control-btn svg { width: 24px; height: 24px; }
+        
+        /* Indicador de página */
+        .page-indicator { 
+            position: fixed; top: 20px; left: 20px; z-index: 1000; 
+            padding: 10px 20px; background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(10px); border: 2px solid rgba(255, 255, 255, 0.3); 
+            border-radius: 50px; color: #fff; font-size: 0.9rem; 
+        }
+        
+        /* Barra de progreso */
+        .progress-bar { 
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 4px; 
+            background: rgba(255, 255, 255, 0.2); z-index: 999; 
+        }
+        .progress-fill { 
+            height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); 
+            transition: width 0.3s ease; 
+        }
+        
+        /* Imagen del slide */
+        .slide-img { 
+            width: 85%; height: 85%; object-fit: cover; border-radius: 20px; 
+            margin: auto; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); 
+        }
     </style>
     
-    <!-- Cargar CSS principal de forma asíncrona -->
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- Cargar CSS completo de forma asíncrona -->
+    <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'; this.onload=null;">
     <noscript><link rel="stylesheet" href="style.css"></noscript>
-    
-    <!-- Cargar Google Fonts de forma asíncrona -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
-    
-    <!-- Polyfill para navegadores antiguos que no soportan preload -->
-    <script>
-        !function(e){"use strict";var t=function(t,n,r){var o,i=e.document,l=i.createElement("link");if(n)o=n;else{var a=(i.body||i.getElementsByTagName("head")[0]).childNodes;o=a[a.length-1]}var d=i.styleSheets;l.rel="stylesheet",l.href=t,l.media="only x",function e(t){if(i.body)return t();setTimeout(function(){e(t)})}(function(){o.parentNode.insertBefore(l,n?o:o.nextSibling)});var f=function(e){for(var t=l.href,n=d.length;n--;)if(d[n].href===t)return e();setTimeout(function(){f(e)})};return l.addEventListener&&l.addEventListener("load",function(){this.media=r||"all"}),l.onloadcssdefined=f,f(function(){l.media!==r&&(l.media=r)}),l};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this);
-    </script>
 </head>
 <body>
     <!-- Controles Flotantes -->
